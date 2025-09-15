@@ -2,22 +2,20 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_USER = "chikkalavenkatasai"   // your Docker Hub username
-        IMAGE_NAME  = "youtube-clone"
-        DOCKER_IMAGE = "${DOCKER_USER}/${IMAGE_NAME}:latest"
+        DOCKER_IMAGE = "chikkalavenkatasai/youtube-clone:latest"
     }
 
     stages {
         stage('Checkout') {
             steps {
-                git url: 'https://github.com/venkat-369/youtube.git', branch: 'main'
+                git branch: 'main', url: 'https://github.com/venkat-369/youtube.git'
             }
         }
 
         stage('Build Docker Image') {
             steps {
                 script {
-                    sh 'docker build -t $DOCKER_IMAGE .'
+                    sh "docker build -t ${DOCKER_IMAGE} ."
                 }
             }
         }
@@ -26,29 +24,25 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
                     script {
-                        sh """
-                        echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
-                        docker push $DOCKER_IMAGE
-                        """
+                        sh '''
+                            echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+                            docker push ${DOCKER_IMAGE}
+                        '''
                     }
                 }
             }
         }
 
-    stage('Deploy Container') {
-    steps {
-        script {
-            sh '''
-                # Remove old container if exists
-                docker rm -f youtube-clone || true
+        stage('Deploy Container') {
+            steps {
+                script {
+                    sh '''
+                        # Remove old container if it exists
+                        docker rm -f youtube-clone || true
 
-                # Run a new container
-                docker run -d -p 8008:80 --name youtube-clone chikkalavenkatasai/youtube-clone:latest
-            '''
-        }
-    }
-}
-
+                        # Run new container
+                        docker run -d -p 8008:80 --name youtube-clone ${DOCKER_IMAGE}
+                    '''
                 }
             }
         }
