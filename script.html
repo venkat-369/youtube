@@ -1,0 +1,51 @@
+/* Reset */
+* {margin: 0; padding: 0; box-sizing: border-box;}
+body {font-family: Arial, sans-serif; background: #f9f9f9; color: #333;}
+
+/* Navbar */
+.navbar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 20px; background: #fff; border-bottom: 1px solid #ddd;
+  position: sticky; top: 0; z-index: 10;
+}
+.logo {font-size: 20px; font-weight: bold; color: red;}
+.search-bar {display: flex; flex: 1; margin: 0 20px;}
+.search-bar input {
+  flex: 1; padding: 6px; border: 1px solid #ccc; border-radius: 4px 0 0 4px;
+}
+.search-bar button {
+  padding: 6px 12px; border: 1px solid #ccc; border-left: none;
+  background: #eee; cursor: pointer; border-radius: 0 4px 4px 0;
+}
+.user {font-size: 20px;}
+
+/* Layout */
+.main-layout {display: flex;}
+
+/* Sidebar */
+.sidebar {
+  width: 200px; background: #fff; padding: 10px;
+  border-right: 1px solid #ddd; height: calc(100vh - 50px);
+  position: sticky; top: 50px;
+}
+.sidebar a {
+  display: block; padding: 10px; color: #333; text-decoration: none;
+  border-radius: 6px; margin-bottom: 5px;
+}
+.sidebar a:hover {background: #f2f2f2;}
+
+/* Video Grid */
+.content {flex: 1; padding: 20px;}
+.videos {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
+.video-card {
+  background: #fff; border-radius: 6px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  overflow: hidden; transition: transform 0.2s;
+}
+.video-card:hover {transform: scale(1.03);}
+.video-card img {width: 100%; display: block;}
+.video-card h3 {font-size: 16px; padding: 10px;}
+.video-card p {font-size: 14px; color: #666; padding: 0 10px 10px;}
+

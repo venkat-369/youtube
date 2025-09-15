@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YouTube Clone</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="logo">▶ YouTube</div>
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Search">
+      <button id="searchBtn">🔍</button>
+    </div>
+    <div class="user">👤</div>
+  </header>
+
+  <!-- Layout -->
+  <div class="main-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <a href="#">🏠 Home</a>
+      <a href="#">🔥 Trending</a>
+      <a href="#">🎵 Music</a>
+      <a href="#">🎮 Gaming</a>
+      <a href="#">📺 Subscriptions</a>
+    </aside>
+
+    <!-- Video Grid -->
+    <main class="content">
+      <div class="videos" id="videoGrid">
+        <!-- Sample videos -->
+        <div class="video-card">
+          <img src="https://i.ytimg.com/vi/tgbNymZ7vqY/hqdefault.jpg" alt="video">
+          <h3>Sample Video 1</h3>
+          <p>Channel One • 1M views</p>
+        </div>
+        <div class="video-card">
+          <img src="https://i.ytimg.com/vi/aqz-KE-bpKQ/hqdefault.jpg" alt="video">
+          <h3>Sample Video 2</h3>
+          <p>Channel Two • 850k views</p>
+        </div>
+        <div class="video-card">
+          <img src="https://i.ytimg.com/vi/ysz5S6PUM-U/hqdefault.jpg" alt="video">
+          <h3>Sample Video 3</h3>
+          <p>Channel Three • 500k views</p>
+        </div>
+        <div class="video-card">
+          <img src="https://i.ytimg.com/vi/dQw4w9WgXcQ/hqdefault.jpg" alt="video">
+          <h3>Sample Video 4</h3>
+          <p>Channel Four • 2M views</p>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
