@@ -2,7 +2,9 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = "venkat369/youtube-clone:latest"
+        DOCKER_USER = "chikkalavenkatasai"   // your Docker Hub username
+        IMAGE_NAME  = "youtube-clone"
+        DOCKER_IMAGE = "${DOCKER_USER}/${IMAGE_NAME}:latest"
     }
 
     stages {
@@ -42,4 +44,5 @@ pipeline {
         }
     }
 }
+
 
