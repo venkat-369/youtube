@@ -2,30 +2,33 @@ pipeline {
     agent any
 
     environment {
-        DOCKERHUB_CREDENTIALS = credentials('dockerhub-creds')   // Jenkins credentials ID
-        DOCKER_IMAGE = "venkat369/youtube-clone"                 // Change to your DockerHub repo
+        DOCKER_IMAGE = "venkat369/youtube-clone:latest"
     }
 
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/venkat-369/youtube.git'
+                git url: 'https://github.com/venkat-369/youtube.git', branch: 'main'
             }
         }
 
         stage('Build Docker Image') {
             steps {
                 script {
-                    sh "docker build -t $DOCKER_IMAGE:latest ."
+                    sh 'docker build -t $DOCKER_IMAGE .'
                 }
             }
         }
 
         stage('Push to Docker Hub') {
             steps {
-                script {
-                    sh "echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin"
-                    sh "docker push $DOCKER_IMAGE:latest"
+                withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                    script {
+                        sh """
+                        echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
+                        docker push $DOCKER_IMAGE
+                        """
+                    }
                 }
             }
         }
@@ -33,10 +36,7 @@ pipeline {
         stage('Deploy Container') {
             steps {
                 script {
-                    // Stop old container if running
-                    sh "docker rm -f youtube-container || true"
-                    // Run new container on port 8080
-                    sh "docker run -d --name youtube-container -p 8080:80 $DOCKER_IMAGE:latest"
+                    sh 'docker run -d -p 8080:80 --name youtube-clone $DOCKER_IMAGE'
                 }
             }
         }
