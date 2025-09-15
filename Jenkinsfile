@@ -36,9 +36,19 @@ pipeline {
         }
 
         stage('Deploy Container') {
-            steps {
-                script {
-                    sh 'docker run -d -p 8008:80 --name youtube-clone $DOCKER_IMAGE'
+    steps {
+        script {
+            sh '''
+            # Remove old container if exists
+            docker rm -f youtube-clone || true
+
+            # Run a new container
+            docker run -d -p 8008:80 --name youtube-clone chikkalavenkatasai/youtube-clone:latest
+            '''
+        }
+    }
+}
+
                 }
             }
         }
