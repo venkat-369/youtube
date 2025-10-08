@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/venkat-369/youtube.git'
+                git branch: 'main', url: 'https://github.com/venkat-369/youtube.git'
             }
         }
 
