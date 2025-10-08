@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_HUB_CREDENTIALS = credentials('dockerhub-login')  // Jenkins credentials ID
+        DOCKER_HUB_CREDENTIALS = chikkalavenkatasai
         IMAGE_NAME = "chikkalavenkatasai/youtube-clone"
     }
 
