@@ -35,7 +35,7 @@ pipeline {
                 sh '''
                     docker stop youtube || true
                     docker rm youtube || true
-                    docker run -d --name youtube -p 80:80 ${IMAGE_NAME}:latest
+                    docker run -d --name youtube -p 80:8069 ${IMAGE_NAME}:latest
                 '''
             }
         }
